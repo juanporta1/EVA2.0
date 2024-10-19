@@ -2,20 +2,20 @@
 /*Paquete utilizados:*/ 
 import readline from "readline";
 import {OpenAI} from "openai";
-
+import {CHATGPT_KEY} from "../config.js";
 /* Constantes:*/
 const input = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
-const openai = new OpenAI();
-openai.apiKey 
+const openai = new OpenAI({apiKey:CHATGPT_KEY});
+
 /*Programa*/
 
 
 let prompt;
-input.question("Ingrese el prompt: ", put => {
-    prompt =  put
+await input.question("Ingrese el prompt: ", put => {
+    prompt = put
 });
 
 let replay = await openai.chat.completions.create({
