@@ -3,6 +3,9 @@ import OpenAI from 'openai';
 import { CHATGPT_KEY } from '../../config';
 import { max } from 'rxjs';
 import { Message } from 'openai/resources/beta/threads/messages';
+import fs from 'fs';
+import { Readable } from 'stream';
+import { AudioContext } from "web-audio-api";
 interface OpenAIReply {
    choices: [
       {
@@ -34,6 +37,25 @@ export class EvaService {
          console.log(err);
          throw err;
       }
+   }
+   route = "./apps/eva2.0/src/audios/eva_response.mp3";
+   async getSpeechVar(prompt: string){
+      const speech = await this.openai.audio.speech.create({
+         model: "tts-1",
+         voice: "alloy",
+         input: prompt
+      });
+      const bufferArray = Buffer.from(await speech.arrayBuffer());
+      console.log(bufferArray);
+      const audioContext = new AudioContext();
+      audioContext.decodeAudioData(bufferArray, (buffer) => {
+      const source = audioContext.createBufferSource();
+      source.buffer = buffer;
+      source.connect(audioContext.destination);
+      source.start(0);
+      }, (error) => {
+      console.error('Error al decodificar el audio:', error);
+      });
    }
    
 
