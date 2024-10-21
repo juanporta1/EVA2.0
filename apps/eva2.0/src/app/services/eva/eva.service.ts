@@ -1,11 +1,11 @@
 import { Get, Injectable } from '@nestjs/common';
 import OpenAI from 'openai';
-import { CHATGPT_KEY } from '../../config';
 import { max } from 'rxjs';
 import { Message } from 'openai/resources/beta/threads/messages';
 import fs from 'fs';
 import { Readable } from 'stream';
 import { AudioContext } from "web-audio-api";
+
 interface OpenAIReply {
    choices: [
       {
@@ -16,16 +16,17 @@ interface OpenAIReply {
       }
    ]
 }
- 
+const CHATGPT_KEY = process.env.CHATGPT_KEY;
 @Injectable()
 export class EvaService {
     
    openai = new OpenAI({apiKey: CHATGPT_KEY});
-
+   
 
 
    async getReply(context: Array<any>, temperature: number, max_tokens: number){
       try{ 
+         
          const reply = await this.openai.chat.completions.create({
             model: "gpt-3.5-turbo",
             temperature:temperature,

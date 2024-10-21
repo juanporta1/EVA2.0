@@ -1,0 +1,4 @@
+/apps/eva2.0/src/app/config.ts
+.env
+node_modules
+npm-debug.log
