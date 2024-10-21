@@ -16,7 +16,7 @@ interface OpenAIReply {
       }
    ]
 }
-const CHATGPT_KEY = process.env.CHATGPT_KEY;
+const CHATGPT_KEY = process.env.CHATGPTKEY;
 @Injectable()
 export class EvaService {
     
@@ -47,16 +47,7 @@ export class EvaService {
          input: prompt
       });
       const bufferArray = Buffer.from(await speech.arrayBuffer());
-      console.log(bufferArray);
-      const audioContext = new AudioContext();
-      audioContext.decodeAudioData(bufferArray, (buffer) => {
-      const source = audioContext.createBufferSource();
-      source.buffer = buffer;
-      source.connect(audioContext.destination);
-      source.start(0);
-      }, (error) => {
-      console.error('Error al decodificar el audio:', error);
-      });
+      
    }
    
 
