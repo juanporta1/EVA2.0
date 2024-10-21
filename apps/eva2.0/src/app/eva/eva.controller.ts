@@ -17,6 +17,7 @@ export class EvaController {
         const reply = await this.eva.getReply(this.context, 1, 1000)
         const onlyReply: string = reply.content
         this.context.push({role: "assistant", content: onlyReply})
+        console.log(this.context)
         return onlyReply;
     }
 }
