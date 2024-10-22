@@ -19,15 +19,12 @@ export class EvaController {
         const reply = await this.eva.getReply(this.context, 1, 1000)
         const onlyReply: string = reply.content
         this.context.push({role: "assistant", content: onlyReply})
-        await this.eva.getSpeechVar(onlyReply);
-        console.log(this.context)
         return onlyReply;
         };
     
     @Get("audio")
-    async getAudioBuffer(@Query("audio") prompt: string)
+    async getAudioBuffer(@Query("prompt") prompt: string)
     {
-        const audioBuffer:Buffer = await this.eva.getSpeechVar(prompt)
-        return audioBuffer;
+        await this.eva.getSpeechVar(prompt);
     }
     }

@@ -5,7 +5,7 @@ import { Message } from 'openai/resources/beta/threads/messages';
 import fs from 'fs';
 import { Readable } from 'stream';
 import { AudioContext } from "web-audio-api";
-
+import path = require('path');
 interface OpenAIReply {
    choices: [
       {
@@ -46,8 +46,9 @@ export class EvaService {
          voice: "alloy",
          input: prompt
       });
-      const bufferArray: Buffer = Buffer.from(await speech.arrayBuffer());
-      return bufferArray; 
+      
+      const buffer: Buffer = Buffer.from(await speech.arrayBuffer());
+      return buffer;
    }
    
 
