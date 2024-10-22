@@ -23,4 +23,11 @@ export class EvaController {
         console.log(this.context)
         return onlyReply;
         };
+    
+    @Get("audio")
+    async getAudioBuffer(@Query("audio") prompt: string)
+    {
+        const audioBuffer:Buffer = await this.eva.getSpeechVar(prompt)
+        return audioBuffer;
+    }
     }

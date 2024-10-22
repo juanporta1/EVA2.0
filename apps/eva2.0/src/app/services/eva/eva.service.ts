@@ -46,8 +46,8 @@ export class EvaService {
          voice: "alloy",
          input: prompt
       });
-      const bufferArray = Buffer.from(await speech.arrayBuffer());
-      
+      const bufferArray: Buffer = Buffer.from(await speech.arrayBuffer());
+      return bufferArray; 
    }
    
 
