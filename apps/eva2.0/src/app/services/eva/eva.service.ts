@@ -40,22 +40,16 @@ export class EvaService {
    }
    route = "./apps/eva2.0/src/audios/eva_response.mp3";
    async getSpeechVar(prompt: string){
+      console.log("Iniciando con la conversion.");
       const speech = await this.openai.audio.speech.create({
          model: "tts-1",
          voice: "alloy",
          input: prompt
       });
+      console.log("Conversion terminada")
       const bufferArray = Buffer.from(await speech.arrayBuffer());
-      console.log(bufferArray);
-      const audioContext = new AudioContext();
-      audioContext.decodeAudioData(bufferArray, (buffer) => {
-      const source = audioContext.createBufferSource();
-      source.buffer = buffer;
-      source.connect(audioContext.destination);
-      source.start(0);
-      }, (error) => {
-      console.error('Error al decodificar el audio:', error);
-      });
+   
+      
    }
    
 
